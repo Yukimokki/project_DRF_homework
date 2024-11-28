@@ -1,13 +1,13 @@
 from django.db import models
-
+from config.settings import AUTH_USER_MODEL
 
 NULLABLE = {"blank": True, "null": True}
 
 class Course(models.Model):
     course_name = models.CharField(
         max_length=100,
-        verbose_name = "course_name",
-        help_text = "name of the course")
+        verbose_name="course_name",
+        help_text="name of the course")
 
     description = models.TextField(verbose_name='description')
 
@@ -44,8 +44,8 @@ class Lesson(models.Model):
     )
     lesson_name = models.CharField(
         max_length=100,
-        verbose_name = "lesson_name",
-        help_text = "name of the lesson")
+        verbose_name="lesson_name",
+        help_text="name of the lesson")
 
     description = models.TextField(verbose_name='description')
     preview = models.ImageField(

@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, generics
+from rest_framework.generics import RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from course_materials.models import Course, Lesson
@@ -52,17 +54,19 @@ class LessonListAPIView(generics.ListAPIView):
     queryset = Lesson.objects.all()
 
 
-class LessonRetrieveAPIView(generics.RetrieveAPIView):
-    serializer_class = LessonSerializer
+class LessonRetrieveAPIView(RetrieveAPIView):
     queryset = Lesson.objects.all()
-
-
-class LessonUpdateAPIView(generics.UpdateAPIView):
     serializer_class = LessonSerializer
+    permission_classes = (IsAuthenticated, IsModer | IsOwner)
+
+
+class LessonUpdateAPIView(UpdateAPIView):
     queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+    permission_classes = (IsAuthenticated, IsModer | IsOwner)
 
 
-class LessonDestroyAPIView(generics.DestroyAPIView):
+class LessonDestroyAPIView(DestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = (IsAuthenticated, IsOwner | ~IsModer)
