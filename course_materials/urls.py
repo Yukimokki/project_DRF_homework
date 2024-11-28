@@ -6,8 +6,10 @@ from course_materials.views import CourseViewSet, LessonCreateAPIView, LessonRet
     LessonDestroyAPIView, LessonListAPIView
 
 app_name = CourseMaterialsConfig.name
+
 router = DefaultRouter()
 router.register(r'courses', CourseViewSet, basename='courses',)
+
 urlpatterns = [
     path('lesson/create', LessonCreateAPIView.as_view(), name="Lesson_Create"),
     path('lesson', LessonListAPIView.as_view(), name="Lesson_List"),
