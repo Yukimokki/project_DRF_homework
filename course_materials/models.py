@@ -6,8 +6,8 @@ NULLABLE = {"blank": True, "null": True}
 class Course(models.Model):
     course_name = models.CharField(
         max_length=100,
-        verbose_name = "course_name",
-        help_text = "name of the course")
+        verbose_name="course_name",
+        help_text="name of the course")
 
     description = models.TextField(verbose_name='description')
 
@@ -44,8 +44,8 @@ class Lesson(models.Model):
     )
     lesson_name = models.CharField(
         max_length=100,
-        verbose_name = "lesson_name",
-        help_text = "name of the lesson")
+        verbose_name="lesson_name",
+        help_text="name of the lesson")
 
     description = models.TextField(verbose_name='description')
     preview = models.ImageField(
@@ -63,3 +63,11 @@ class Lesson(models.Model):
 
     def __str__(self):
         return f'{self.lesson_name}{self.description}'
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ("user", "course")
