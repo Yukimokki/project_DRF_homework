@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from rest_framework import viewsets, generics
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from course_materials.models import Course, Lesson
+from course_materials.models import Course, Lesson, Subscription
 from course_materials.serializers import CourseSerializer, LessonSerializer, CourseDetailSerializer
 from users.permissions import IsModer, IsOwner
 
@@ -70,3 +73,27 @@ class LessonDestroyAPIView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = (IsAuthenticated, IsOwner | ~IsModer)
+
+class SubscriptionView(APIView):
+    """Class to check the subscription"""
+
+    def post(self, request, course_id, *args, **kwargs):
+        user = request.user  # Getting the current user
+
+        course_item = get_object_or_404(
+            Course, id=course_id
+        )  # Get course or 404
+
+        # Checking the subscription
+        subs_item = Subscription.objects.filter(user=user, course=course_item)
+
+        if subs_item.exists():
+            subs_item.delete()
+            message = "subscription removed"
+        else:
+            Subscription.objects.create(
+                user=user, course=course_item
+            )  # Creating subscription
+            message = "Subscription created"
+
+        return Response({"message": message})
