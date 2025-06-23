@@ -6,13 +6,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from course_materials.models import Course, Lesson, Subscription
+from course_materials.paginators import MyPaginator
 from course_materials.serializers import CourseSerializer, LessonSerializer, CourseDetailSerializer
 from users.permissions import IsModer, IsOwner
 
 
 class CourseViewSet(viewsets.ModelViewSet):
-    serializer_class = CourseSerializer
+    #serializer_class = CourseSerializer
     queryset = Course.objects.all()
+    pagination_class = MyPaginator
 
     """define which serialize to use depending on action"""
     def get_serializer_class(self):
@@ -89,7 +91,7 @@ class SubscriptionView(APIView):
 
         if subs_item.exists():
             subs_item.delete()
-            message = "subscription removed"
+            message = "subscription deleted"
         else:
             Subscription.objects.create(
                 user=user, course=course_item
