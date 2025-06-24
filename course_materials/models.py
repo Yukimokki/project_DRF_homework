@@ -54,7 +54,7 @@ class Lesson(models.Model):
         verbose_name="lesson preview",
         help_text="Upload lesson preview",
     )
-    video_link = models.FileField(upload_to="lesson/video", **NULLABLE, max_length=254, verbose_name = "lesson video")
+    video_url = models.FileField(upload_to="lesson/video", **NULLABLE, max_length=254, verbose_name = "lesson video")
 
 
     class Meta:
