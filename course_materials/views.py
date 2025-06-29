@@ -9,6 +9,7 @@ from course_materials.models import Course, Lesson, Subscription
 from course_materials.paginators import MyPaginator
 from course_materials.serializers import CourseSerializer, LessonSerializer, CourseDetailSerializer
 from users.permissions import IsModer, IsOwner
+from course_materials.tasks import send_info
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -40,6 +41,16 @@ class CourseViewSet(viewsets.ModelViewSet):
             self.permission_classes = (~IsModer | IsOwner,)
 
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+
+        emails = []
+        subscriptions = Subscription.objects.filter(course=course)
+        for s in subscriptions:
+            emails.append(s.user.email)
+
+        send_info.delay(course.id, emails, f'Course {course.title} is changed')
 
 class LessonCreateAPIView(generics.CreateAPIView):
     queryset = Lesson.objects.all()
