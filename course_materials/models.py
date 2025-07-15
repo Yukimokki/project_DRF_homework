@@ -4,13 +4,26 @@ from django.db import models
 NULLABLE = {"blank": True, "null": True}
 
 class Course(models.Model):
-    course_name = models.CharField(max_length=100, verbose_name = "course_name", help_text = "name of the course")
+    course_name = models.CharField(
+        max_length=100,
+        verbose_name="course_name",
+        help_text="name of the course")
+
     description = models.TextField(verbose_name='description')
+
     preview = models.ImageField(
         upload_to="course/preview",
         **NULLABLE,
         verbose_name="course preview",
         help_text="Upload course preview",
+    )
+
+    owner = models.ForeignKey(
+        'users.User',
+        on_delete=models.SET_NULL,
+        **NULLABLE,
+        verbose_name="Владелец",
+        help_text="Укажите владельца курса"
     )
 
 
@@ -22,7 +35,18 @@ class Course(models.Model):
         return f'{self.course_name}{self.description}'
 
 class Lesson(models.Model):
-    lesson_name = models.CharField(max_length=100, verbose_name = "lesson_name", help_text = "name of the lesson")
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        verbose_name="Course name",
+        related_name="lessons",
+        **NULLABLE
+    )
+    lesson_name = models.CharField(
+        max_length=100,
+        verbose_name="lesson_name",
+        help_text="name of the lesson")
+
     description = models.TextField(verbose_name='description')
     preview = models.ImageField(
         upload_to="lesson/preview",
@@ -30,16 +54,8 @@ class Lesson(models.Model):
         verbose_name="lesson preview",
         help_text="Upload lesson preview",
     )
-    video_link = models.FileField(upload_to="lesson/video", **NULLABLE, max_length=254, verbose_name = "lesson video")
+    video_url = models.FileField(upload_to="lesson/video", **NULLABLE, max_length=254, verbose_name = "lesson video")
 
-    course = models.ForeignKey(
-        Course,
-        on_delete=models.SET_NULL,
-        null=True,
-        verbose_name="Course",
-        help_text="Lesson belongs to",
-        related_name="courses",
-    )
 
     class Meta:
         verbose_name = "Lesson"
@@ -47,3 +63,11 @@ class Lesson(models.Model):
 
     def __str__(self):
         return f'{self.lesson_name}{self.description}'
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ("user", "course")
