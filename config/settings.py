@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = os.getenv("DEBUG", False) == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
@@ -107,7 +107,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -189,11 +190,11 @@ EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", False) == "True"
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 #
-# CACHE_ENABLED = True
-# if CACHE_ENABLED:
-#     CACHES = {
-#         "default": {
-#             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-#             "LOCATION": os.getenv("LOCATION"),
-#         }
-#     }
+ CACHE_ENABLED = True
+ if CACHE_ENABLED:
+     CACHES = {
+         "default": {
+             "BACKEND": "django.core.cache.backends.redis.RedisCache",
+             "LOCATION": os.getenv("LOCATION"),
+         }
+     }
