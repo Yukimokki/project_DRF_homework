@@ -1,4 +1,5 @@
 import os
+import sys
 from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
@@ -190,11 +191,22 @@ EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", False) == "True"
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 #
- CACHE_ENABLED = True
- if CACHE_ENABLED:
-     CACHES = {
-         "default": {
-             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-             "LOCATION": os.getenv("LOCATION"),
-         }
-     }
+
+CACHE_ENABLED = True
+
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv("LOCATION"),
+        }
+    }
+
+
+if 'test' in sys.argv:
+    DATABASES ={
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR/'test_db.sqlite3',
+        }
+    }
