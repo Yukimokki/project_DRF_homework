@@ -3,3 +3,5 @@
 Запуск селери бит на виндовс celery -A config beat -l INFO
 
 Создание и запуск контейнеров docker-compose up -d --build
+
+Workflow test 1
