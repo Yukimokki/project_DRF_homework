@@ -12,8 +12,7 @@ from users.models import User
 def send_info(course_id, recipients, message):
     """Sends a message about course update to user"""
 
-    send_mail(f'Course {course_id} is refreshed', message,
-              EMAIL_HOST_USER, recipients)
+    send_mail(f"Course {course_id} is refreshed", message, EMAIL_HOST_USER, recipients)
 
 
 @shared_task

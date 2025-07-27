@@ -23,11 +23,14 @@ class UserCreateAPIView(CreateAPIView):
         user.set_password(user.password)
         user.save()
 
+
 class PaymentViewSet(viewsets.ModelViewSet):
     """allows to make CRUD views automatically"""
 
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+
+
 #
 #
 # class PaymentListView(ListCreateAPIView):
@@ -49,7 +52,7 @@ class PaymentListView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         # Gets course_id from url request
-        course_id = self.kwargs.get('course_id')
+        course_id = self.kwargs.get("course_id")
         # Get course object from ID
         course = Course.objects.get(id=course_id)
         # Saves payment with user and paid course name
@@ -57,7 +60,9 @@ class PaymentListView(ListCreateAPIView):
 
         try:
             course_name = course.title
-            session_id, payment_link = create_session(payment.payment_amount, f"to be paid {course_name}")
+            session_id, payment_link = create_session(
+                payment.payment_amount, f"to be paid {course_name}"
+            )
             payment.session_id = session_id
             payment.payment_link = payment_link
             payment.save()

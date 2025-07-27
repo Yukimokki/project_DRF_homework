@@ -9,7 +9,9 @@ class LessonTestCase(APITestCase):
 
     def setUp(self):
         self.user = User.objects.create(email="admin@skypro.ru")
-        self.course = Course.objects.create(title="New course", description="Description")
+        self.course = Course.objects.create(
+            title="New course", description="Description"
+        )
         self.lesson = Lesson.objects.create(
             title="New Lesson",
             description="Description",
@@ -139,6 +141,8 @@ class SubscriptionTestCase(APITestCase):
             response.data.get("detail"),
             "No Course matches the given query.",
         )
+
+
 from django.test import TestCase
 
 # Create your tests here.

@@ -4,7 +4,7 @@ from .models import Payment
 
 
 class PaymentFilter(django_filters.FilterSet):
-    """ Filter for payment model"""
+    """Filter for payment model"""
 
     payment_date = django_filters.DateFilter()
     paid_course = django_filters.NumberFilter()
