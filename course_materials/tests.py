@@ -141,8 +141,3 @@ class SubscriptionTestCase(APITestCase):
             response.data.get("detail"),
             "No Course matches the given query.",
         )
-
-
-from django.test import TestCase
-
-# Create your tests here.
