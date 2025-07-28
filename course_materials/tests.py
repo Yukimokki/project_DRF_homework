@@ -1,8 +1,8 @@
 from rest_framework.test import APITestCase
 from course_materials.models import Course, Lesson
 from users.models import User
-#from django.shortcuts import reverse
-#from rest_framework import status
+# from django.shortcuts import reverse
+# from rest_framework import status
 
 
 class LessonTestCase(APITestCase):
