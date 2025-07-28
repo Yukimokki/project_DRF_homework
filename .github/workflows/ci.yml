@@ -117,8 +117,8 @@ jobs:
         echo "POSTGRES_HOST=$POSTGRES_HOST" >> .env
         echo "POSTGRES_PORT=$POSTGRES_PORT" >> .env
 
-    - name: Run migrations
-      run: python manage.py migrate
+#    - name: Run migrations
+#      run: python manage.py migrate
 
     - name: Run tests
       run: python manage.py test
