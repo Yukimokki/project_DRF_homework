@@ -8,25 +8,72 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('course_materials', '0002_lesson_course'),
-        ('users', '0001_initial'),
+        ("course_materials", "0002_lesson_course"),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Payment',
+            name="Payment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('payment_date', models.DateField(verbose_name='payment date')),
-                ('payment_amount', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='total payment')),
-                ('payment_method', models.CharField(choices=[('cash', 'Cash'), ('transfer', 'account transfer')], max_length=20, verbose_name='Payment method')),
-                ('paid_course', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='course_materials.course', verbose_name='Paid course')),
-                ('separately_paid_lesson', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='course_materials.lesson', verbose_name='A lesson paid separately')),
-                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='User')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("payment_date", models.DateField(verbose_name="payment date")),
+                (
+                    "payment_amount",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=10, verbose_name="total payment"
+                    ),
+                ),
+                (
+                    "payment_method",
+                    models.CharField(
+                        choices=[("cash", "Cash"), ("transfer", "account transfer")],
+                        max_length=20,
+                        verbose_name="Payment method",
+                    ),
+                ),
+                (
+                    "paid_course",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="course_materials.course",
+                        verbose_name="Paid course",
+                    ),
+                ),
+                (
+                    "separately_paid_lesson",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="course_materials.lesson",
+                        verbose_name="A lesson paid separately",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="User",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Payment',
-                'verbose_name_plural': 'Payments',
+                "verbose_name": "Payment",
+                "verbose_name_plural": "Payments",
             },
         ),
     ]

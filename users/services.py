@@ -15,9 +15,7 @@ def create_price(price, name):
     """creates products price"""
     product_id = create_product(name).id
     response = stripe.Price.create(
-        currency="rub",
-        unit_amount=int(price * 100),
-        product=product_id
+        currency="rub", unit_amount=int(price * 100), product=product_id
     )
     return response
 

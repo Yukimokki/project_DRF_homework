@@ -3,7 +3,7 @@ from users.models import User
 
 
 class Command(BaseCommand):
-    def handle(self,*args,**options):
+    def handle(self, *args, **options):
         user = User.objects.create(email="admin@skypro.com")
         user.set_password("12345")
         user.is_active = True

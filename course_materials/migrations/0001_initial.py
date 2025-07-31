@@ -7,35 +7,91 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Course',
+            name="Course",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('course_name', models.CharField(help_text='name of the course', max_length=100, verbose_name='course_name')),
-                ('description', models.TextField(verbose_name='description')),
-                ('preview', models.ImageField(blank=True, help_text='Upload course preview', null=True, upload_to='course/preview', verbose_name='course preview')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "course_name",
+                    models.CharField(
+                        help_text="name of the course",
+                        max_length=100,
+                        verbose_name="course_name",
+                    ),
+                ),
+                ("description", models.TextField(verbose_name="description")),
+                (
+                    "preview",
+                    models.ImageField(
+                        blank=True,
+                        help_text="Upload course preview",
+                        null=True,
+                        upload_to="course/preview",
+                        verbose_name="course preview",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Course',
-                'verbose_name_plural': 'Courses',
+                "verbose_name": "Course",
+                "verbose_name_plural": "Courses",
             },
         ),
         migrations.CreateModel(
-            name='Lesson',
+            name="Lesson",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('lesson_name', models.CharField(help_text='name of the lesson', max_length=100, verbose_name='lesson_name')),
-                ('description', models.TextField(verbose_name='description')),
-                ('preview', models.ImageField(blank=True, help_text='Upload lesson preview', null=True, upload_to='lesson/preview', verbose_name='lesson preview')),
-                ('video_link', models.FileField(blank=True, max_length=254, null=True, upload_to='lesson/video', verbose_name='lesson video')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "lesson_name",
+                    models.CharField(
+                        help_text="name of the lesson",
+                        max_length=100,
+                        verbose_name="lesson_name",
+                    ),
+                ),
+                ("description", models.TextField(verbose_name="description")),
+                (
+                    "preview",
+                    models.ImageField(
+                        blank=True,
+                        help_text="Upload lesson preview",
+                        null=True,
+                        upload_to="lesson/preview",
+                        verbose_name="lesson preview",
+                    ),
+                ),
+                (
+                    "video_link",
+                    models.FileField(
+                        blank=True,
+                        max_length=254,
+                        null=True,
+                        upload_to="lesson/video",
+                        verbose_name="lesson video",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Lesson',
-                'verbose_name_plural': 'Lessons',
+                "verbose_name": "Lesson",
+                "verbose_name_plural": "Lessons",
             },
         ),
     ]
