@@ -159,5 +159,6 @@ jobs:
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/project_drf_homework:${{ github.sha }}
           docker stop project_drf_homework || true
           docker rm project_drf_homework || true
-          docker run -d --name project_drf_homework -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/project_drf_homework:${{ github.sha }}
+          # docker run -d --name project_drf_homework -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/project_drf_homework:${{ github.sha }}
+          docker run -d --name project_drf_homework ${{ secrets.DOCKER_HUB_USERNAME }}/project_drf_homework:${{ github.sha }}
           EOF
